@@ -2,6 +2,7 @@ package main
 
 import (
 	"github.com/mtikvica/GoMovies/handlers"
+	"github.com/mtikvica/GoMovies/routes"
 
 	"github.com/mtikvica/GoMovies/db"
 
@@ -16,12 +17,12 @@ func main() {
 
 	r := gin.Default()
 
-	// Movie endpoints
-	r.GET("/movies", handlers.GetMovies)
-	r.POST("/movies", handlers.CreateMovie)
-	r.GET("/movies/:id", handlers.GetMovie)
-	r.PUT("/movies/:id", handlers.UpdateMovie)
-	r.DELETE("/movies/:id", handlers.DeleteMovie)
+	routes.RegisterMovieRoutes(r)
+
+	routes.RegisterActorRoutes(r)
+
+	r.GET("/movies/:id/actors", handlers.GetMovieActors)
+	r.POST("/movies/:id/actors", handlers.CreateMovieActor)
 
 	r.Run(":8000")
 }
